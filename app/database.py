@@ -1,23 +1,16 @@
 import time
-import os
 
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-
-postgresql = os.environ.get("DDTYPE")
-user = os.environ.get("USER")
-password = os.environ.get("PASSWORD")
-postgresserver = os.environ.get("SERVER")
-db = os.environ.get("DBNAME")
+from . import config
 
 
 # SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
 # SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
-SQLALCHEMY_DATABASE_URL = f"{postgresql}://{user}:{password}@{postgresserver}/{db}"
-# SQLALCHEMY_DATABASE_URL = "postgresql://allgift:Matt6:33@localhost/new-fastapi"
+SQLALCHEMY_DATABASE_URL = f"{config.postgresql}://{config.user}:{config.password}@{config.postgresserver}/{config.db}"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
